@@ -61,7 +61,7 @@ button{font-family:inherit}
 
 /* intro */
 #closed{left:calc(var(--u)*32.5);top:calc(var(--u)*16.4);width:calc(var(--u)*38);height:calc(var(--u)*30);z-index:20;transition:opacity .5s ease,transform .6s var(--spring)}
-#closed .cIn{width:100%;height:100%;transition:transform .35s var(--spring)}
+#closed .cIn{display:flow-root;width:100%;height:100%;transition:transform .35s var(--spring)}
 #closed:hover .cIn{transform:translateY(-6px) rotate(-1deg)}
 body.open #closed{opacity:0;transform:translateY(calc(var(--u)*-3)) rotate(-4deg);pointer-events:none}
 #intro{left:calc(var(--u)*7);top:calc(var(--u)*17);width:calc(var(--u)*24);z-index:20;transition:opacity .4s ease,transform .5s ease}
@@ -83,7 +83,7 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
 
 /* pans */
 .pan{width:calc(var(--u)*9.2);height:calc(var(--u)*9.4);z-index:10}
-.lift{position:relative;width:100%;height:100%;transition:transform .25s var(--spring)}
+.lift{position:relative;display:flow-root;width:100%;height:100%;transition:transform .25s var(--spring)}
 .pan:hover .lift{transform:translateY(-5px) scale(1.03)}
 .tag{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:calc(var(--u)*.35);white-space:nowrap;border-radius:99px;font-weight:600;font-size:calc(var(--u)*.72);box-shadow:0 3px 8px rgba(0,0,0,.25);transition:background .3s,color .3s}
 .pan .tag{top:calc(100% - var(--u)*1.55);background:var(--teal);color:#fff;padding:calc(var(--u)*.16) calc(var(--u)*.6) calc(var(--u)*.16) calc(var(--u)*.16)}
