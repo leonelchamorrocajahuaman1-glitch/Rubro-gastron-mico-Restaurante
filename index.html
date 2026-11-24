@@ -34,7 +34,12 @@ button{font-family:inherit}
 #band a{color:var(--teal-d);text-decoration:none;font-weight:600;font-size:calc(var(--u)*.85);position:relative;padding:calc(var(--u)*.2) 0}
 #band a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--u)*.16);border-radius:9px;background:var(--teal-d);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
 #band a:hover::after{transform:scaleX(1)}
-#howBtn{position:absolute;right:calc(var(--u)*1.6);top:50%;transform:translateY(-50%);background:none;border:0;color:var(--teal-d);font-weight:600;font-size:calc(var(--u)*.85);display:flex;align-items:center;gap:calc(var(--u)*.45)}
+#bandR{position:absolute;right:calc(var(--u)*1.6);top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:calc(var(--u)*1.4)}
+#lang{display:flex;border:calc(var(--u)*.14) solid var(--teal-d);border-radius:99px;overflow:hidden}
+#lang button{border:0;background:none;color:var(--teal-d);font-weight:700;font-size:calc(var(--u)*.72);padding:calc(var(--u)*.18) calc(var(--u)*.6);letter-spacing:.06em;transition:background .2s,color .2s}
+#lang button.on{background:var(--teal-d);color:#fff}
+#lang button:focus-visible,#howBtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#howBtn{background:none;border:0;color:var(--teal-d);font-weight:600;font-size:calc(var(--u)*.85);display:flex;align-items:center;gap:calc(var(--u)*.45)}
 #howBtn .q{width:calc(var(--u)*1.5);height:calc(var(--u)*1.5);border-radius:50%;border:calc(var(--u)*.16) solid var(--teal-d);display:grid;place-items:center;font-weight:700;font-size:calc(var(--u)*.85)}
 #howPop{position:absolute;right:calc(var(--u)*1.6);top:calc(100% + var(--u)*1.1);width:calc(var(--u)*19);background:var(--cream);border-radius:calc(var(--u)*1);padding:calc(var(--u)*1.1) calc(var(--u)*1.3);box-shadow:0 12px 28px rgba(0,0,0,.28);opacity:0;transform:translateY(-8px) scale(.95);transform-origin:top right;pointer-events:none;transition:.3s var(--spring)}
 #howPop.show{opacity:1;transform:none;pointer-events:auto}
@@ -207,19 +212,20 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
 
 <header id="band">
   <nav id="bandIn">
-    <a href="#">Menu</a><a href="#">Build Your Poke Bowl</a><a href="#">Bowls</a><a href="#">Sides</a><a href="#">Drinks</a><a href="#">Help</a>
-    <button id="howBtn">How it works <span class="q">?</span></button>
-    <div id="howPop"><ol><li>Grab rice, then your toppings.</li><li>Pick up a bottle and drizzle.</li><li>Drop in a side, top it off, check out.</li></ol></div>
+    <a href="#" data-t="nav1">Menu</a><a href="#" data-t="nav2">Build Your Poke Bowl</a><a href="#" data-t="nav3">Bowls</a><a href="#" data-t="nav4">Sides</a><a href="#" data-t="nav5">Drinks</a><a href="#" data-t="nav6">Help</a>
+    <div id="bandR"><div id="lang" role="group" aria-label="Language / Idioma"><button data-l="es">ES</button><button data-l="en">EN</button></div>
+    <button id="howBtn"><span data-t="how">How it works</span> <span class="q">?</span></button></div>
+    <div id="howPop"><ol><li data-t="h1">Grab rice, then your toppings.</li><li data-t="h2">Pick up a bottle and drizzle.</li><li data-t="h3">Drop in a side, top it off, check out.</li></ol></div>
   </nav>
 </header>
 
 <main id="scene">
-  <div id="logo" class="abs"><div class="mk"><span class="p1">POKE</span><span class="p2">PAL</span></div><div class="tl">Fresh bowls.<br>Better days.</div></div>
+  <div id="logo" class="abs"><div class="mk"><span class="p1">POKE</span><span class="p2">PAL</span></div><div class="tl" data-t="tag">Fresh bowls.<br>Better days.</div></div>
 
   <!-- intro -->
-  <div id="intro" class="abs"><h1>Good things come in bowls.</h1><p>A little rice, a lot of fresh. Build your bowl, sauce it up and grab a side.</p></div>
+  <div id="intro" class="abs"><h1 data-t="ih">Good things come in bowls.</h1><p data-t="ip">A little rice, a lot of fresh. Build your bowl, sauce it up and grab a side.</p></div>
   <div id="closed" class="abs"><div class="cIn"><div class="spr" id="closedSpr"></div></div></div>
-  <div id="openWrap" class="abs"><button class="btn" id="openBtn">Open for something fresh ↗</button></div>
+  <div id="openWrap" class="abs"><button class="btn" id="openBtn" data-t="open">Open for something fresh ↗</button></div>
 
   <!-- builder -->
   <div id="pans"></div>
@@ -230,49 +236,49 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
       <div class="spr bspr" id="bowlE"></div><div class="spr bspr" id="bowlR"></div>
       <div id="piles"></div><canvas id="sauce"></canvas><div id="garnish"></div>
     </div></div>
-    <div id="zone"><div id="card"><b>Poke Bowl</b><span>Fresh ingredients · Big vibes</span></div><div id="sideIn"></div></div>
+    <div id="zone"><div id="card"><b>Poke Bowl</b><span data-t="card">Fresh ingredients · Big vibes</span></div><div id="sideIn"></div></div>
   </div>
   <div id="sides"></div>
 
-  <div id="stk1" class="abs sticker pop" style="--i:15"><div class="si">Better together.</div></div>
-  <div id="stk2" class="abs sticker pop" style="--i:16"><div class="si">Make it yours!</div></div>
+  <div id="stk1" class="abs sticker pop" style="--i:15"><div class="si" data-t="s1">Better together.</div></div>
+  <div id="stk2" class="abs sticker pop" style="--i:16"><div class="si" data-t="s2">Make it yours!</div></div>
   <div id="stk3" class="abs sticker pop" style="--i:17"><div class="si">Poke Pal!</div></div>
 
   <div id="receipt" class="abs">
     <div id="rcPaper"></div>
-    <div class="rcH">POKE PAL</div><div class="rcS">ONE VERY GOOD BOWL</div>
+    <div class="rcH">POKE PAL</div><div class="rcS" data-t="rcs">ONE VERY GOOD BOWL</div>
     <div class="rule"></div><div id="rcLines"></div><div class="rule"></div>
     <div class="rcT"><span>TOTAL</span><span id="rcTotal">$0.00</span></div>
-    <div class="rcM"><label><input type="radio" name="mode" value="pickup" checked> Pick up</label><label><input type="radio" name="mode" value="delivery"> Delivery +$4</label></div>
-    <button class="btn" id="checkoutBtn">Checkout ↗</button>
-    <button id="backBtn">← Back to building</button>
+    <div class="rcM"><label><input type="radio" name="mode" value="pickup" checked> <span data-t="pick">Pick up</span></label><label><input type="radio" name="mode" value="delivery"> <span data-t="deliv">Delivery +$4</span></label></div>
+    <button class="btn" id="checkoutBtn" data-t="co">Checkout ↗</button>
+    <button id="backBtn" data-t="back">← Back to building</button>
   </div>
 
   <div id="toastWrap" class="abs"><div id="toast"></div></div>
   <div id="barWrap" class="abs"><div id="bar" class="pop" style="--i:18">
-    <div class="step" data-s="0"><span class="n">1</span>Choose base</div>
-    <div class="step" data-s="1"><span class="n">2</span>Add proteins</div>
-    <div class="step" data-s="2"><span class="n">3</span>Pick toppings</div>
-    <div class="step" data-s="3"><span class="n">4</span>Select sauce</div>
+    <div class="step" data-s="0"><span class="n">1</span><span data-t="st1">Choose base</span></div>
+    <div class="step" data-s="1"><span class="n">2</span><span data-t="st2">Add proteins</span></div>
+    <div class="step" data-s="2"><span class="n">3</span><span data-t="st3">Pick toppings</span></div>
+    <div class="step" data-s="3"><span class="n">4</span><span data-t="st4">Select sauce</span></div>
     <div id="total">$0.00</div>
-    <button class="btn coral" id="topBtn" disabled>Top it off ↗</button>
-    <button id="undoBtn">↺ Undo</button>
+    <button class="btn coral" id="topBtn" data-t="top" disabled>Top it off ↗</button>
+    <button id="undoBtn" data-t="undo">↺ Undo</button>
   </div></div>
 </main>
 
 <div id="checkout"><div id="coCard">
   <div id="coForm">
-    <h2>Good food.<br>Coming your way.</h2>
-    <label class="fld">Your name<input id="coName" type="text" autocomplete="name"></label>
-    <label class="fld">Phone<input id="coPhone" type="tel" autocomplete="tel"></label>
+    <h2 data-t="coh">Good food.<br>Coming your way.</h2>
+    <label class="fld"><span data-t="name">Your name</span><input id="coName" type="text" autocomplete="name"></label>
+    <label class="fld"><span data-t="phone">Phone</span><input id="coPhone" type="tel" autocomplete="tel"></label>
     <label class="fld"><span id="locLabel">Pick up at</span><select id="coLoc"></select></label>
     <div class="coT"><span>Total</span><span id="coTotal">$0.00</span></div>
-    <button class="btn coral" id="placeBtn">Place my order ↗</button>
+    <button class="btn coral" id="placeBtn" data-t="place">Place my order ↗</button>
   </div>
   <div id="coDone" hidden>
     <svg viewBox="0 0 70 70"><circle class="cc" cx="35" cy="35" r="33" fill="#0d6a6e"/><path class="tk" d="M20 36 l10 10 l20 -22" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="on">Order #PP-2481</div>
-    <button class="btn" id="againBtn">Build another bowl</button>
+    <div class="on" data-t="order">Order #PP-2481</div>
+    <button class="btn" id="againBtn" data-t="again">Build another bowl</button>
   </div>
 </div></div>
 
@@ -331,14 +337,14 @@ ORDER.forEach((id,i)=>{
   const d=ING[id],el=document.createElement('div');
   el.className='pan abs pop';el.dataset.id=id;
   el.style.cssText=`left:calc(var(--u)*${PANX[i%2]});top:calc(var(--u)*${PANY[i>>1]});--i:${idx++}`;
-  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="ic">${d.e}</span><b>${d.n}</b><span class="pr">${id==='rice'?'':'+'}${money(d.p)}</span></div></div>`;
+  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="ic">${d.e}</span><b class="nm"></b><span class="pr">${id==='rice'?'':'+'}${money(d.p)}</span></div></div>`;
   $('#pans').appendChild(el);
 });
 Object.entries(SAUCE).forEach(([id,d])=>{
   const el=document.createElement('div');
   el.className='bottle abs pop';el.dataset.id=id;
   el.style.cssText=`left:calc(var(--u)*${d.x});--i:${idx++}`;
-  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="dot"></span><b>${d.n}</b><span class="pr">$0.00</span></div></div>`;
+  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="dot"></span><b class="nm"></b><span class="pr">$0.00</span></div></div>`;
   $('#bottles').appendChild(el);
 });
 idx=12;
@@ -346,7 +352,7 @@ Object.entries(SIDE).forEach(([id,d])=>{
   const el=document.createElement('div');
   el.className='side abs pop';el.dataset.id=id;
   el.style.cssText=`top:calc(var(--u)*${d.y});--i:${idx++}`;
-  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="dot"></span><b>${d.n}</b><span class="pr">${money(d.p)}</span></div></div>`;
+  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><span class="dot"></span><b class="nm"></b><span class="pr">${money(d.p)}</span></div></div>`;
   $('#sides').appendChild(el);
 });
 
@@ -487,10 +493,10 @@ function toast(m){toastEl.textContent=m;toastEl.classList.remove('show');void to
 /* ---------- receipt ---------- */
 let rcTimers=[],printing=false;
 function receiptLines(){
-  const l=[['Sushi rice',money(8)]];
-  state.piles.forEach(p=>l.push([ING[p.id].n,money(ING[p.id].p)]));
-  [...new Set(state.sauces.map(s=>s.id))].forEach(id=>l.push([SAUCE[id].n,'ON US']));
-  if(state.side)l.push([SIDE[state.side].n,money(SIDE[state.side].p)]);
+  const l=[[nm(ING.rice),money(8)]];
+  state.piles.forEach(p=>l.push([nm(ING[p.id]),money(ING[p.id].p)]));
+  [...new Set(state.sauces.map(s=>s.id))].forEach(id=>l.push([nm(SAUCE[id]),t('free')]));
+  if(state.side)l.push([nm(SIDE[state.side]),money(SIDE[state.side].p)]);
   return l;
 }
 function lineEl(l,anim){const d=document.createElement('div');d.className='ln'+(anim?' print':'');d.innerHTML=`<span>${l[0]}</span><span>${l[1]}</span>`;return d}
@@ -606,17 +612,17 @@ function dropHeld(){
     if(!overBowl(P.x,P.y))back();
     else if(h.id==='rice'){
       if(state.rice)back();
-      else{pushUndo();state.rice=true;renderRice(true);toast('Sushi rice added.')}
-    }else if(!state.rice)back('Start with sushi rice!');
+      else{pushUndo();state.rice=true;renderRice(true);toast(t('tRice'))}
+    }else if(!state.rice)back(t('tFirst'));
     else if(state.piles.length>=8)back();
     else{
       const lx=(P.x-bowlEl.getBoundingClientRect().left)/L.W,ly=(P.y-bowlEl.getBoundingClientRect().top)/L.H;
       const q=place((lx-CX)/RX,(ly-CY)/RY);
-      pushUndo();const uid=uidc++;state.piles.push({uid,id:h.id,nx:q.nx,ny:q.ny});renderPiles(uid);toast(ING[h.id].n+' added.');
+      pushUndo();const uid=uidc++;state.piles.push({uid,id:h.id,nx:q.nx,ny:q.ny});renderPiles(uid);toast(t('tAdd',nm(ING[h.id])));
     }
   }else{
-    if(inRect(zone,P.x,P.y,L.U)){pushUndo();state.side=h.id;renderSide(true);toast(SIDE[h.id].n+' on the side.')}
-    else{flyHome(hin,'side',h.id,from,0);toast('Drop it in the side spot!')}
+    if(inRect(zone,P.x,P.y,L.U)){pushUndo();state.side=h.id;renderSide(true);toast(t('tSide',nm(SIDE[h.id])))}
+    else{flyHome(hin,'side',h.id,from,0);toast(t('tSpot'))}
   }
   clearHeld();updateUI();placeGlove();
 }
@@ -628,7 +634,7 @@ function returnBottle(){
   clearHeld();placeGlove();
 }
 function finishStroke(){
-  if(stroke&&stroke.pts.length>=4){pushUndo();state.sauces.push(stroke);toast(SAUCE[stroke.id].n+' on top.')}
+  if(stroke&&stroke.pts.length>=4){pushUndo();state.sauces.push(stroke);toast(t('tSauce',nm(SAUCE[stroke.id])))}
   stroke=null;drawSauce();updateUI();
 }
 function addPt(){
@@ -646,7 +652,7 @@ function removePile(uid){
   const p=state.piles.find(x=>x.uid===uid);if(!p)return;
   const el=pilesEl.querySelector(`.pile[data-uid="${uid}"] .spr`);
   if(el)flyHome(el,'ing',p.id,center(el),0);
-  pushUndo();state.piles=state.piles.filter(x=>x.uid!==uid);renderPiles();toast(ING[p.id].n+' removed.');updateUI();
+  pushUndo();state.piles=state.piles.filter(x=>x.uid!==uid);renderPiles();toast(t('tRem',nm(ING[p.id])));updateUI();
 }
 
 /* ---------- pointer ---------- */
@@ -684,7 +690,7 @@ window.addEventListener('pointerdown',e=>{
   if(t.closest('button,input,select,a,label,#receipt,#barWrap,#band'))return;
   const pan=t.closest('.pan'),bot=t.closest('.bottle'),sd=t.closest('.side'),pile=t.closest('.pile');
   if(pan){e.preventDefault();pickUp('ing',pan.dataset.id)}
-  else if(bot){e.preventDefault();if(!state.rice){toast('Start with sushi rice!');return}pickUp('bottle',bot.dataset.id)}
+  else if(bot){e.preventDefault();if(!state.rice){toast(t('tFirst'));return}pickUp('bottle',bot.dataset.id)}
   else if(sd){e.preventDefault();pickUp('side',sd.dataset.id)}
   else if(pile){e.preventDefault();removePile(+pile.dataset.uid)}
 });
@@ -701,7 +707,7 @@ window.addEventListener('pointerup',onUp);
 window.addEventListener('pointercancel',onUp);
 
 /* ---------- controls ---------- */
-function openUp(){if(body.classList.contains('open'))return;body.classList.add('open');setTimeout(()=>toast('Grab some sushi rice to start.'),450)}
+function openUp(){if(body.classList.contains('open'))return;body.classList.add('open');setTimeout(()=>toast(t('tStart')),450)}
 $('#closed').addEventListener('click',openUp);
 $('#openBtn').addEventListener('click',openUp);
 $('#howBtn').addEventListener('click',e=>{e.stopPropagation();$('#howPop').classList.toggle('show')});
@@ -711,7 +717,7 @@ $('#undoBtn').addEventListener('click',undo);
 topBtn.addEventListener('click',()=>{
   if(!(state.rice&&state.piles.length))return;
   if(hold)cancelHold();
-  pushUndo();state.topped=1+Math.floor(Math.random()*1e9);state.receipt=false;renderGarnish(true);toast('One very good bowl.');
+  pushUndo();state.topped=1+Math.floor(Math.random()*1e9);state.receipt=false;renderGarnish(true);toast(t('tTop'));
   clearTimeout(topT);topT=setTimeout(()=>{state.receipt=true;showReceipt(false)},650);
 });
 $('#backBtn').addEventListener('click',()=>{pushUndo();clearTimeout(topT);state.topped=0;state.receipt=false;renderGarnish(false);hideReceipt();updateUI()});
@@ -720,7 +726,7 @@ document.querySelectorAll('input[name=mode]').forEach(r=>r.addEventListener('cha
 const LOCS={pickup:['Poke Pal — Harbor Street','Poke Pal — Market Square'],delivery:['12 Kelp Lane, Apt 3','48 Coral Avenue']};
 $('#checkoutBtn').addEventListener('click',()=>{
   const d=state.mode==='delivery';
-  $('#locLabel').textContent=d?'Deliver to':'Pick up at';
+  $('#locLabel').textContent=t(d?'locD':'locP');
   $('#coLoc').innerHTML=LOCS[state.mode].map(l=>`<option>${l}</option>`).join('');
   $('#coTotal').textContent=money(receiptTotal());
   $('#coForm').hidden=false;$('#coDone').hidden=true;
@@ -730,7 +736,7 @@ $('#placeBtn').addEventListener('click',()=>{$('#coForm').hidden=true;const d=$(
 $('#againBtn').addEventListener('click',()=>{
   checkout.classList.remove('show');clearTimeout(topT);
   state=fresh();hist=[];$('#coName').value='';$('#coPhone').value='';
-  renderAll();toast('Grab some sushi rice to start.');
+  renderAll();toast(t('tStart'));
 });
 window.addEventListener('keydown',e=>{
   if(e.key==='Escape'){if(hold)cancelHold();else if(checkout.classList.contains('show'))checkout.classList.remove('show')}
@@ -738,6 +744,44 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('resize',()=>{if(hold)cancelHold();layout()});
 
+/* ---------- language ---------- */
+const I18N={
+ en:{nav1:'Menu',nav2:'Build Your Poke Bowl',nav3:'Bowls',nav4:'Sides',nav5:'Drinks',nav6:'Help',how:'How it works',
+  h1:'Grab rice, then your toppings.',h2:'Pick up a bottle and drizzle.',h3:'Drop in a side, top it off, check out.',
+  tag:'Fresh bowls.<br>Better days.',ih:'Good things come in bowls.',ip:'A little rice, a lot of fresh. Build your bowl, sauce it up and grab a side.',open:'Open for something fresh ↗',
+  card:'Fresh ingredients · Big vibes',s1:'Better together.',s2:'Make it yours!',rcs:'ONE VERY GOOD BOWL',pick:'Pick up',deliv:'Delivery +$4',co:'Checkout ↗',back:'← Back to building',
+  st1:'Choose base',st2:'Add proteins',st3:'Pick toppings',st4:'Select sauce',top:'Top it off ↗',undo:'↺ Undo',
+  coh:'Good food.<br>Coming your way.',name:'Your name',phone:'Phone',place:'Place my order ↗',order:'Order #PP-2481',again:'Build another bowl',
+  locP:'Pick up at',locD:'Deliver to',free:'ON US',
+  tStart:'Grab some sushi rice to start.',tRice:'Sushi rice added.',tFirst:'Start with sushi rice!',tAdd:'{n} added.',tRem:'{n} removed.',tSauce:'{n} on top.',tSide:'{n} on the side.',tSpot:'Drop it in the side spot!',tTop:'One very good bowl.'},
+ es:{nav1:'Menú',nav2:'Arma tu Poke Bowl',nav3:'Bowls',nav4:'Acompañamientos',nav5:'Bebidas',nav6:'Ayuda',how:'Cómo funciona',
+  h1:'Toma el arroz y luego tus toppings.',h2:'Toma una botella y echa la salsa.',h3:'Agrega un acompañamiento, decóralo y paga.',
+  tag:'Bowls frescos.<br>Días mejores.',ih:'Lo bueno viene en bowls.',ip:'Un poco de arroz y mucho frescor. Arma tu bowl, ponle salsa y elige un acompañamiento.',open:'Abre algo fresco ↗',
+  card:'Ingredientes frescos · Buena onda',s1:'Mejor juntos.',s2:'¡Hazlo tuyo!',rcs:'UN BOWL MUY BUENO',pick:'Recoger',deliv:'Delivery +$4',co:'Pagar ↗',back:'← Volver a armar',
+  st1:'Elige la base',st2:'Agrega proteínas',st3:'Elige toppings',st4:'Elige la salsa',top:'Decóralo ↗',undo:'↺ Deshacer',
+  coh:'Buena comida.<br>En camino.',name:'Tu nombre',phone:'Teléfono',place:'Hacer mi pedido ↗',order:'Pedido #PP-2481',again:'Armar otro bowl',
+  locP:'Recoger en',locD:'Entregar en',free:'GRATIS',
+  tStart:'Toma un poco de arroz para empezar.',tRice:'Agregaste arroz de sushi.',tFirst:'¡Empieza con el arroz!',tAdd:'Agregaste {n}.',tRem:'Quitaste {n}.',tSauce:'Salsa {n} lista.',tSide:'{n} de acompañamiento.',tSpot:'¡Déjalo en el espacio del acompañamiento!',tTop:'Un bowl muy bueno.'}
+};
+const ES_N={rice:'Arroz de sushi',salmon:'Salmón',tuna:'Atún',avocado:'Palta',edamame:'Edamame',cucumber:'Pepino',mango:'Mango',seaweed:'Ensalada de algas',
+  shoyu:'Shoyu',mayo:'Mayo picante',ponzu:'Ponzu',miso:'Sopa miso',gyoza:'Gyoza',prawn:'Galletas de camarón'};
+Object.entries(ING).forEach(([k,v])=>v.k=k);Object.entries(SAUCE).forEach(([k,v])=>v.k=k);Object.entries(SIDE).forEach(([k,v])=>v.k=k);
+let lang='en';try{const l=localStorage.getItem('pp-lang');if(l==='es'||l==='en')lang=l}catch(e){}
+function t(k,n){const s=I18N[lang][k]??I18N.en[k];return n!=null?s.replace('{n}',lang==='es'&&k!=='tSauce'&&k!=='tSide'?n.toLowerCase():n):s}
+function nm(o){return lang==='es'?ES_N[o.k]:o.n}
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-t]').forEach(el=>el.innerHTML=t(el.dataset.t));
+  document.querySelectorAll('#lang button').forEach(b=>{b.classList.toggle('on',b.dataset.l===lang);b.setAttribute('aria-pressed',b.dataset.l===lang)});
+  document.querySelectorAll('.pan').forEach(p=>p.querySelector('.nm').textContent=nm(ING[p.dataset.id]));
+  document.querySelectorAll('.bottle').forEach(p=>p.querySelector('.nm').textContent=nm(SAUCE[p.dataset.id]));
+  document.querySelectorAll('.side').forEach(p=>p.querySelector('.nm').textContent=nm(SIDE[p.dataset.id]));
+  if(checkout.classList.contains('show'))$('#locLabel').textContent=t(state.mode==='delivery'?'locD':'locP');
+  if(state.receipt&&receipt.classList.contains('show')&&!printing)showReceipt(true,true);
+}
+document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.l;try{localStorage.setItem('pp-lang',lang)}catch(e){}applyLang()}));
+
+applyLang();
 setGlove('open');
 layout();updateUI();
 if(document.fonts)document.fonts.ready.then(layout);
