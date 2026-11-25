@@ -192,6 +192,37 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
 #placeBtn{width:100%}
 #coDone{text-align:center}
 #coDone[hidden],#coForm[hidden]{display:none}
+.coErr{color:#b3261e;font-size:calc(var(--u)*.8);font-weight:600;min-height:calc(var(--u)*1.2);margin:calc(var(--u)*-.2) 0 calc(var(--u)*.3)}
+.fld input.bad{border-color:#d9483b}
+.coBack{display:block;margin:calc(var(--u)*.8) auto 0;background:none;border:0;color:var(--teal-d);font-family:'Fredoka',sans-serif;font-weight:600;font-size:calc(var(--u)*.85);text-decoration:underline}
+
+/* info panels (nav) */
+#panel{position:fixed;inset:0;z-index:940;display:grid;place-items:center;background:rgba(15,59,62,.22);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s}
+#panel.show{opacity:1;pointer-events:auto}
+#pCard{position:relative;width:min(calc(var(--u)*36),92vw);max-height:86vh;overflow:auto;background:var(--cream);border-radius:calc(var(--u)*1.4);padding:calc(var(--u)*2) calc(var(--u)*2.2);box-shadow:0 24px 50px rgba(0,0,0,.35);transform:translateY(40px) scale(.7) rotate(-1deg);transition:transform .6s var(--spring);font-size:max(13px,calc(var(--u)*.95))}
+#panel.show #pCard{transform:rotate(-1deg)}
+#pCard h2{font-family:'Lilita One',sans-serif;font-weight:400;color:var(--teal);font-size:calc(var(--u)*2.4);line-height:1;margin:0 calc(var(--u)*2.4) calc(var(--u)*.4) 0}
+#pCard .lead{color:var(--teal-d);margin:0 0 calc(var(--u)*.8);line-height:1.4}
+.pClose{position:absolute;top:calc(var(--u)*1);right:calc(var(--u)*1);width:calc(var(--u)*2.2);height:calc(var(--u)*2.2);min-width:28px;min-height:28px;border-radius:50%;border:0;background:var(--teal-l);color:var(--teal-d);font-size:calc(var(--u)*1);font-weight:700}
+.pSec{font-weight:600;font-size:.8em;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-d);margin:calc(var(--u)*1) 0 calc(var(--u)*.2)}
+.pRow{display:flex;align-items:center;gap:calc(var(--u)*.7);padding:calc(var(--u)*.45) 0;border-bottom:1px dashed rgba(15,59,62,.2)}
+.pRow .em{width:2.1em;height:2.1em;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.pRow .pn{flex:1;min-width:0;font-weight:600;color:var(--ink)}
+.pRow .pn small{display:block;font-weight:400;font-size:.82em;color:var(--teal-d);opacity:.85}
+.pRow .pp{font-family:'Courier Prime',monospace;font-weight:700;white-space:nowrap}
+.mini{border:0;border-radius:99px;background:var(--teal);color:#fff;font-weight:600;font-size:.85em;padding:.35em .9em;white-space:nowrap}
+.mini.ghost{background:var(--teal-l);color:var(--teal-d)}
+.mini.coral{background:var(--coral)}
+.qty{display:flex;align-items:center;gap:.4em}
+.qty button{width:1.8em;height:1.8em;border-radius:50%;border:0;background:var(--teal);color:#fff;font-weight:700;line-height:1}
+.qty button:disabled{opacity:.35}
+.qty b{min-width:1.4em;text-align:center;font-family:'Courier Prime',monospace}
+.pFoot{display:flex;justify-content:space-between;align-items:center;gap:calc(var(--u)*1);margin-top:calc(var(--u)*1.2);flex-wrap:wrap}
+.pTot{font-family:'Courier Prime',monospace;font-weight:700;font-size:1.2em}
+.pSteps{margin:0;padding:0;list-style:none;counter-reset:s}
+.pSteps li{counter-increment:s;display:flex;gap:.7em;align-items:center;padding:.35em 0;font-weight:500}
+.pSteps li::before{content:counter(s);flex:none;width:1.7em;height:1.7em;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-weight:700;font-size:.9em}
+.pTips{margin:0;padding-left:1.2em;line-height:1.5;color:var(--teal-d)}
 #coDone svg{width:calc(var(--u)*7);height:calc(var(--u)*7);display:block;margin:0 auto calc(var(--u)*1)}
 #coDone .tk{stroke-dasharray:60;stroke-dashoffset:60;animation:tick .6s .2s ease-out forwards}
 #coDone .cc{transform-origin:50% 50%;animation:pin .5s var(--spring) both}
@@ -212,7 +243,7 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
 
 <header id="band">
   <nav id="bandIn">
-    <a href="#" data-t="nav1">Menu</a><a href="#" data-t="nav2">Build Your Poke Bowl</a><a href="#" data-t="nav3">Bowls</a><a href="#" data-t="nav4">Sides</a><a href="#" data-t="nav5">Drinks</a><a href="#" data-t="nav6">Help</a>
+    <a href="#" data-nav="menu" data-t="nav1">Menu</a><a href="#" data-nav="build" data-t="nav2">Build Your Poke Bowl</a><a href="#" data-nav="bowls" data-t="nav3">Bowls</a><a href="#" data-nav="sides" data-t="nav4">Sides</a><a href="#" data-nav="drinks" data-t="nav5">Drinks</a><a href="#" data-nav="help" data-t="nav6">Help</a>
     <div id="bandR"><div id="lang" role="group" aria-label="Language / Idioma"><button data-l="es">ES</button><button data-l="en">EN</button></div>
     <button id="howBtn"><span data-t="how">How it works</span> <span class="q">?</span></button></div>
     <div id="howPop"><ol><li data-t="h1">Grab rice, then your toppings.</li><li data-t="h2">Pick up a bottle and drizzle.</li><li data-t="h3">Drop in a side, top it off, check out.</li></ol></div>
@@ -273,7 +304,9 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
     <label class="fld"><span data-t="phone">Phone</span><input id="coPhone" type="tel" autocomplete="tel"></label>
     <label class="fld"><span id="locLabel">Pick up at</span><select id="coLoc"></select></label>
     <div class="coT"><span>Total</span><span id="coTotal">$0.00</span></div>
+    <div class="coErr" id="coErr" role="alert"></div>
     <button class="btn coral" id="placeBtn" data-t="place">Place my order ↗</button>
+    <button class="coBack" id="coBack" data-t="coBack">← Back to my bowl</button>
   </div>
   <div id="coDone" hidden>
     <svg viewBox="0 0 70 70"><circle class="cc" cx="35" cy="35" r="33" fill="#0d6a6e"/><path class="tk" d="M20 36 l10 10 l20 -22" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -281,6 +314,8 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
     <button class="btn" id="againBtn" data-t="again">Build another bowl</button>
   </div>
 </div></div>
+
+<div id="panel" role="dialog" aria-modal="true"><div id="pCard"><button class="pClose" id="pClose" aria-label="Close">✕</button><div id="pBody"></div></div></div>
 
 <div id="held"></div>
 <svg id="glove" viewBox="0 0 58 62"></svg>
@@ -323,6 +358,18 @@ const SIDE={
   gyoza:{n:'Gyoza',p:4,b:[628,447,1458,1037],y:21.8},
   prawn:{n:'Prawn crackers',p:3.5,b:[1457,304,2036,1048],y:35.4}
 };
+const DRINK={
+  tea:{n:'Green tea',p:2.5,e:'🍵'},
+  yuzu:{n:'Yuzu lemonade',p:3.5,e:'🍋'},
+  coco:{n:'Coconut water',p:3,e:'🥥'},
+  ramune:{n:'Ramune soda',p:3,e:'🫧'}
+};
+const PRESET={
+  classic:{n:'Classic Salmon',es:'Salmón clásico',e:'🍣',items:['salmon','avocado','cucumber'],sauce:'shoyu'},
+  spicy:{n:'Spicy Tuna',es:'Atún picante',e:'🌶️',items:['tuna','mango','edamame'],sauce:'mayo'},
+  garden:{n:'Green Garden',es:'Jardín verde',e:'🥑',items:['avocado','edamame','seaweed','cucumber'],sauce:'ponzu'}
+};
+const PRESET_POS=[[-.38,-.12],[.36,-.18],[0,.34],[.02,-.45]];
 const BOWL_E=[168,245,930,1140],BOWL_R=[1110,247,1866,1143],BOX_O=[259,141,1879,1216],BOX_C=[247,136,1901,1261];
 const COMP_L=[330,223,1249,968],COMP_R=[1274,337,1757,866];
 const RX=.43,RY=.31,CX=.5,CY=.375;
@@ -368,7 +415,7 @@ function fit(el,sheet,box,aw,ah){
 }
 
 /* ---------- state ---------- */
-const fresh=()=>({rice:false,piles:[],sauces:[],side:null,topped:0,receipt:false,mode:'pickup'});
+const fresh=()=>({rice:false,piles:[],sauces:[],side:null,drinks:{},topped:0,receipt:false,mode:'pickup'});
 let state=fresh(),hist=[],uidc=1,L={U:0,W:0,H:0};
 
 function layout(){
@@ -402,7 +449,7 @@ function renderPiles(newUid){
     const d=document.createElement('div');d.className='pile';d.dataset.uid=p.uid;
     d.style.cssText=`left:${(CX+p.nx*RX)*W-pw/2}px;top:${(CY+p.ny*RY)*Hh-pw/2}px;width:${pw}px;height:${pw}px;z-index:${Math.round((p.ny+1)*100)}`;
     const s=document.createElement('div');s.className='spr pspr';fit(s,'pl',ING[p.id].pl,pw,pw);
-    if(p.uid===newUid)s.classList.add('drop');
+    if(newUid==='all'||p.uid===newUid)s.classList.add('drop');
     d.appendChild(s);pilesEl.appendChild(d);
   });
 }
@@ -468,7 +515,8 @@ function renderGarnish(anim){
 }
 
 /* ---------- UI ---------- */
-function bowlTotal(){return(state.rice?8:0)+state.piles.reduce((s,p)=>s+ING[p.id].p,0)+(state.side?SIDE[state.side].p:0)}
+function drinksTotal(){return Object.entries(state.drinks||{}).reduce((s,[k,q])=>s+DRINK[k].p*q,0)}
+function bowlTotal(){return(state.rice?8:0)+state.piles.reduce((s,p)=>s+ING[p.id].p,0)+(state.side?SIDE[state.side].p:0)+drinksTotal()}
 function receiptTotal(){return bowlTotal()+(state.mode==='delivery'?4:0)}
 function animateNum(el,to){
   cancelAnimationFrame(el._raf);
@@ -497,6 +545,7 @@ function receiptLines(){
   state.piles.forEach(p=>l.push([nm(ING[p.id]),money(ING[p.id].p)]));
   [...new Set(state.sauces.map(s=>s.id))].forEach(id=>l.push([nm(SAUCE[id]),t('free')]));
   if(state.side)l.push([nm(SIDE[state.side]),money(SIDE[state.side].p)]);
+  Object.entries(state.drinks||{}).forEach(([k,q])=>{if(q)l.push([nm(DRINK[k])+(q>1?' ×'+q:''),money(DRINK[k].p*q)])});
   return l;
 }
 function lineEl(l,anim){const d=document.createElement('div');d.className='ln'+(anim?' print':'');d.innerHTML=`<span>${l[0]}</span><span>${l[1]}</span>`;return d}
@@ -674,7 +723,7 @@ document.addEventListener('pointerleave',()=>{glove.style.opacity=0});
 document.documentElement.addEventListener('mouseleave',()=>{glove.style.opacity=0});
 window.addEventListener('pointerdown',e=>{
   P.x=e.clientX;P.y=e.clientY;lastTarget=e.target;placeGlove();
-  if(!body.classList.contains('open')||checkout.classList.contains('show'))return;
+  if(!body.classList.contains('open')||checkout.classList.contains('show')||panel.classList.contains('show'))return;
   const t=e.target;
   if(hold){
     e.preventDefault();
@@ -707,12 +756,12 @@ window.addEventListener('pointerup',onUp);
 window.addEventListener('pointercancel',onUp);
 
 /* ---------- controls ---------- */
-function openUp(){if(body.classList.contains('open'))return;body.classList.add('open');setTimeout(()=>toast(t('tStart')),450)}
-$('#closed').addEventListener('click',openUp);
-$('#openBtn').addEventListener('click',openUp);
+function openUp(quiet){if(body.classList.contains('open'))return;body.classList.add('open');if(!quiet)setTimeout(()=>toast(t('tStart')),450)}
+$('#closed').addEventListener('click',()=>openUp());
+$('#openBtn').addEventListener('click',()=>openUp());
 $('#howBtn').addEventListener('click',e=>{e.stopPropagation();$('#howPop').classList.toggle('show')});
 document.addEventListener('click',e=>{if(!e.target.closest('#howPop,#howBtn'))$('#howPop').classList.remove('show')});
-document.querySelectorAll('#band a').forEach(a=>a.addEventListener('click',e=>e.preventDefault()));
+document.querySelectorAll('#band a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();nav(a.dataset.nav)}));
 $('#undoBtn').addEventListener('click',undo);
 topBtn.addEventListener('click',()=>{
   if(!(state.rice&&state.piles.length))return;
@@ -729,17 +778,23 @@ $('#checkoutBtn').addEventListener('click',()=>{
   $('#locLabel').textContent=t(d?'locD':'locP');
   $('#coLoc').innerHTML=LOCS[state.mode].map(l=>`<option>${l}</option>`).join('');
   $('#coTotal').textContent=money(receiptTotal());
-  $('#coForm').hidden=false;$('#coDone').hidden=true;
-  checkout.classList.add('show');
+  $('#coForm').hidden=false;$('#coDone').hidden=true;coError(null);
+  closePanel();checkout.classList.add('show');
 });
-$('#placeBtn').addEventListener('click',()=>{$('#coForm').hidden=true;const d=$('#coDone');d.hidden=false;d.querySelectorAll('.tk,.cc').forEach(x=>{x.style.animation='none';void x.getBoundingClientRect();x.style.animation=''})});
+function coError(key,el){$('#coErr').textContent=key?t(key):'';$('#coErr').dataset.k=key||'';document.querySelectorAll('.fld input').forEach(i=>i.classList.toggle('bad',i===el));if(el)el.focus()}
+['#coName','#coPhone'].forEach(s=>$(s).addEventListener('input',()=>coError(null)));
+$('#coBack').addEventListener('click',()=>{coError(null);checkout.classList.remove('show')});
+$('#placeBtn').addEventListener('click',()=>{
+  if(!$('#coName').value.trim())return coError('eName',$('#coName'));
+  if($('#coPhone').value.replace(/\D/g,'').length<6)return coError('ePhone',$('#coPhone'));
+  coError(null);$('#coForm').hidden=true;const d=$('#coDone');d.hidden=false;d.querySelectorAll('.tk,.cc').forEach(x=>{x.style.animation='none';void x.getBoundingClientRect();x.style.animation=''})});
 $('#againBtn').addEventListener('click',()=>{
   checkout.classList.remove('show');clearTimeout(topT);
-  state=fresh();hist=[];$('#coName').value='';$('#coPhone').value='';
+  closePanel();state=fresh();hist=[];$('#coName').value='';$('#coPhone').value='';
   renderAll();toast(t('tStart'));
 });
 window.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){if(hold)cancelHold();else if(checkout.classList.contains('show'))checkout.classList.remove('show')}
+  if(e.key==='Escape'){if(hold)cancelHold();else if(panel.classList.contains('show'))closePanel();else if(checkout.classList.contains('show'))checkout.classList.remove('show')}
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'&&!e.target.closest('input,select')){e.preventDefault();undo()}
 });
 window.addEventListener('resize',()=>{if(hold)cancelHold();layout()});
@@ -753,7 +808,15 @@ const I18N={
   st1:'Choose base',st2:'Add proteins',st3:'Pick toppings',st4:'Select sauce',top:'Top it off ↗',undo:'↺ Undo',
   coh:'Good food.<br>Coming your way.',name:'Your name',phone:'Phone',place:'Place my order ↗',order:'Order #PP-2481',again:'Build another bowl',
   locP:'Pick up at',locD:'Deliver to',free:'ON US',
-  tStart:'Grab some sushi rice to start.',tRice:'Sushi rice added.',tFirst:'Start with sushi rice!',tAdd:'{n} added.',tRem:'{n} removed.',tSauce:'{n} on top.',tSide:'{n} on the side.',tSpot:'Drop it in the side spot!',tTop:'One very good bowl.'},
+  tStart:'Grab some sushi rice to start.',tRice:'Sushi rice added.',tFirst:'Start with sushi rice!',tAdd:'{n} added.',tRem:'{n} removed.',tSauce:'{n} on top.',tSide:'{n} on the side.',tSpot:'Drop it in the side spot!',tTop:'One very good bowl.',
+  coBack:'← Back to my bowl',eName:'Add your name so we know who the bowl is for.',ePhone:'Add a phone number with at least 6 digits.',close:'Close',
+  pMenuH:'Our menu',pMenuL:'Everything you can put in your Poke Pal box. Sauces are always free.',secBase:'Base',secProt:'Proteins',secTop:'Toppings',secSauce:'Sauces',secSide:'Sides',secDrink:'Drinks',
+  buildGo:'Build your bowl ↗',pBowlsH:'Signature bowls',pBowlsL:'Short on ideas? Pick one and we put it in your box. You can still change anything after.',use:'Use this bowl',
+  pSidesH:'Sides',pSidesL:'One side fits in the box. Picking another one swaps it.',addBox:'Add to box',remove:'Remove',inBox:'In your box',
+  pDrinksH:'Drinks',pDrinksL:'Cold drinks to go with your bowl. They are added to your total.',drinksTot:'Drinks',done:'Done',
+  pHelpH:'Help',pHelpL:'How to build your bowl:',tipsH:'Good to know',
+  tip1:'Click a topping in the bowl to send it back to its pan.',tip2:'Press Esc to put down whatever you are holding.',tip3:'↺ Undo or Ctrl/Cmd + Z reverses the last step.',tip4:'Sauces are free. Delivery adds $4.',
+  gotIt:'Got it',tPreset:'{n} is in your box.',tKeep:'Keep building your bowl.',tDrink:'{n} added.',tSideOff:'Side removed.',free2:'free'},
  es:{nav1:'Menú',nav2:'Arma tu Poke Bowl',nav3:'Bowls',nav4:'Acompañamientos',nav5:'Bebidas',nav6:'Ayuda',how:'Cómo funciona',
   h1:'Toma el arroz y luego tus toppings.',h2:'Toma una botella y echa la salsa.',h3:'Agrega un acompañamiento, decóralo y paga.',
   tag:'Bowls frescos.<br>Días mejores.',ih:'Lo bueno viene en bowls.',ip:'Un poco de arroz y mucho frescor. Arma tu bowl, ponle salsa y elige un acompañamiento.',open:'Abre algo fresco ↗',
@@ -761,13 +824,22 @@ const I18N={
   st1:'Elige la base',st2:'Agrega proteínas',st3:'Elige toppings',st4:'Elige la salsa',top:'Decóralo ↗',undo:'↺ Deshacer',
   coh:'Buena comida.<br>En camino.',name:'Tu nombre',phone:'Teléfono',place:'Hacer mi pedido ↗',order:'Pedido #PP-2481',again:'Armar otro bowl',
   locP:'Recoger en',locD:'Entregar en',free:'GRATIS',
-  tStart:'Toma un poco de arroz para empezar.',tRice:'Agregaste arroz de sushi.',tFirst:'¡Empieza con el arroz!',tAdd:'Agregaste {n}.',tRem:'Quitaste {n}.',tSauce:'Salsa {n} lista.',tSide:'{n} de acompañamiento.',tSpot:'¡Déjalo en el espacio del acompañamiento!',tTop:'Un bowl muy bueno.'}
+  tStart:'Toma un poco de arroz para empezar.',tRice:'Agregaste arroz de sushi.',tFirst:'¡Empieza con el arroz!',tAdd:'Agregaste {n}.',tRem:'Quitaste {n}.',tSauce:'Salsa {n} lista.',tSide:'{n} de acompañamiento.',tSpot:'¡Déjalo en el espacio del acompañamiento!',tTop:'Un bowl muy bueno.',
+  coBack:'← Volver a mi bowl',eName:'Escribe tu nombre para saber de quién es el bowl.',ePhone:'Escribe un teléfono de al menos 6 dígitos.',close:'Cerrar',
+  pMenuH:'Nuestra carta',pMenuL:'Todo lo que puedes poner en tu caja Poke Pal. Las salsas siempre son gratis.',secBase:'Base',secProt:'Proteínas',secTop:'Toppings',secSauce:'Salsas',secSide:'Acompañamientos',secDrink:'Bebidas',
+  buildGo:'Arma tu bowl ↗',pBowlsH:'Bowls de la casa',pBowlsL:'¿Sin ideas? Elige uno y lo ponemos en tu caja. Después puedes cambiar lo que quieras.',use:'Usar este bowl',
+  pSidesH:'Acompañamientos',pSidesL:'En la caja cabe un acompañamiento. Si eliges otro, se cambia.',addBox:'Añadir a la caja',remove:'Quitar',inBox:'En tu caja',
+  pDrinksH:'Bebidas',pDrinksL:'Bebidas frías para acompañar tu bowl. Se suman a tu total.',drinksTot:'Bebidas',done:'Listo',
+  pHelpH:'Ayuda',pHelpL:'Cómo armar tu bowl:',tipsH:'Para tener en cuenta',
+  tip1:'Haz clic en un topping del bowl para devolverlo a su bandeja.',tip2:'Pulsa Esc para soltar lo que tienes en la mano.',tip3:'↺ Deshacer o Ctrl/Cmd + Z revierte el último paso.',tip4:'Las salsas son gratis. El delivery suma $4.',
+  gotIt:'Entendido',tPreset:'{n} ya está en tu caja.',tKeep:'Sigue armando tu bowl.',tDrink:'Agregaste {n}.',tSideOff:'Quitaste el acompañamiento.',free2:'gratis'}
 };
 const ES_N={rice:'Arroz de sushi',salmon:'Salmón',tuna:'Atún',avocado:'Palta',edamame:'Edamame',cucumber:'Pepino',mango:'Mango',seaweed:'Ensalada de algas',
-  shoyu:'Shoyu',mayo:'Mayo picante',ponzu:'Ponzu',miso:'Sopa miso',gyoza:'Gyoza',prawn:'Galletas de camarón'};
-Object.entries(ING).forEach(([k,v])=>v.k=k);Object.entries(SAUCE).forEach(([k,v])=>v.k=k);Object.entries(SIDE).forEach(([k,v])=>v.k=k);
+  shoyu:'Shoyu',mayo:'Mayo picante',ponzu:'Ponzu',miso:'Sopa miso',gyoza:'Gyoza',prawn:'Galletas de camarón',
+  tea:'Té verde',yuzu:'Limonada de yuzu',coco:'Agua de coco',ramune:'Soda Ramune'};
+Object.entries(ING).forEach(([k,v])=>v.k=k);Object.entries(SAUCE).forEach(([k,v])=>v.k=k);Object.entries(SIDE).forEach(([k,v])=>v.k=k);Object.entries(DRINK).forEach(([k,v])=>v.k=k);
 let lang='en';try{const l=localStorage.getItem('pp-lang');if(l==='es'||l==='en')lang=l}catch(e){}
-function t(k,n){const s=I18N[lang][k]??I18N.en[k];return n!=null?s.replace('{n}',lang==='es'&&k!=='tSauce'&&k!=='tSide'?n.toLowerCase():n):s}
+function t(k,n){const s=I18N[lang][k]??I18N.en[k];return n!=null?s.replace('{n}',lang==='es'&&(k==='tAdd'||k==='tRem'||k==='tDrink')?n.toLowerCase():n):s}
 function nm(o){return lang==='es'?ES_N[o.k]:o.n}
 function applyLang(){
   document.documentElement.lang=lang;
@@ -778,8 +850,81 @@ function applyLang(){
   document.querySelectorAll('.side').forEach(p=>p.querySelector('.nm').textContent=nm(SIDE[p.dataset.id]));
   if(checkout.classList.contains('show'))$('#locLabel').textContent=t(state.mode==='delivery'?'locD':'locP');
   if(state.receipt&&receipt.classList.contains('show')&&!printing)showReceipt(true,true);
+  $('#pClose').setAttribute('aria-label',t('close'));
+  if(panel.classList.contains('show'))renderPanel();
+  if($('#coErr').textContent&&$('#coErr').dataset.k)$('#coErr').textContent=t($('#coErr').dataset.k);
 }
 document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.l;try{localStorage.setItem('pp-lang',lang)}catch(e){}applyLang()}));
+
+/* ---------- nav panels ---------- */
+const panel=$('#panel'),pBody=$('#pBody');let panelKind='';
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pName=o=>lang==='es'&&o.es?o.es:o.n;
+function row(em,name,sub,right){return `<div class="pRow"><span class="em">${em}</span><span class="pn">${esc(name)}${sub?`<small>${esc(sub)}</small>`:''}</span>${right}</div>`}
+function renderPanel(){
+  let h='';const k=panelKind;
+  if(k==='menu'){
+    h=`<h2>${t('pMenuH')}</h2><p class="lead">${t('pMenuL')}</p>`;
+    const sec=(title,list)=>`<div class="pSec">${title}</div>`+list.join('');
+    h+=sec(t('secBase'),[row(ING.rice.e,nm(ING.rice),'',`<span class="pp">${money(8)}</span>`)]);
+    h+=sec(t('secProt'),PROTEIN.map(id=>row(ING[id].e,nm(ING[id]),'',`<span class="pp">+${money(ING[id].p)}</span>`)));
+    h+=sec(t('secTop'),ORDER.filter(id=>id!=='rice'&&!PROTEIN.includes(id)).map(id=>row(ING[id].e,nm(ING[id]),'',`<span class="pp">+${money(ING[id].p)}</span>`)));
+    h+=sec(t('secSauce'),Object.values(SAUCE).map(o=>row(`<i style="width:60%;height:60%;border-radius:50%;background:${o.c}"></i>`,nm(o),'',`<span class="pp">${t('free2')}</span>`)));
+    h+=sec(t('secSide'),Object.values(SIDE).map(o=>row({miso:'🍜',gyoza:'🥟',prawn:'🦐'}[o.k],nm(o),'',`<span class="pp">${money(o.p)}</span>`)));
+    h+=sec(t('secDrink'),Object.values(DRINK).map(o=>row(o.e,nm(o),'',`<span class="pp">${money(o.p)}</span>`)));
+    h+=`<div class="pFoot"><span></span><button class="btn coral" data-act="build">${t('buildGo')}</button></div>`;
+  }else if(k==='bowls'){
+    h=`<h2>${t('pBowlsH')}</h2><p class="lead">${t('pBowlsL')}</p>`;
+    h+=Object.entries(PRESET).map(([id,o])=>{
+      const items=['rice',...o.items].map(i=>nm(ING[i])).join(', ')+' · '+nm(SAUCE[o.sauce]);
+      const price=8+o.items.reduce((s,i)=>s+ING[i].p,0);
+      return row(o.e,pName(o)+' · '+money(price),items,`<button class="mini coral" data-act="preset" data-id="${id}">${t('use')}</button>`)}).join('');
+  }else if(k==='sides'){
+    h=`<h2>${t('pSidesH')}</h2><p class="lead">${t('pSidesL')}</p>`;
+    h+=Object.values(SIDE).map(o=>row({miso:'🍜',gyoza:'🥟',prawn:'🦐'}[o.k],nm(o),state.side===o.k?t('inBox'):'',
+      `<span class="pp">${money(o.p)}</span>`+(state.side===o.k?`<button class="mini ghost" data-act="sideOff">${t('remove')}</button>`:`<button class="mini" data-act="side" data-id="${o.k}">${t('addBox')}</button>`))).join('');
+  }else if(k==='drinks'){
+    h=`<h2>${t('pDrinksH')}</h2><p class="lead">${t('pDrinksL')}</p>`;
+    h+=Object.values(DRINK).map(o=>{const q=state.drinks[o.k]||0;
+      return row(o.e,nm(o),money(o.p),`<span class="qty"><button data-act="dminus" data-id="${o.k}" aria-label="−" ${q?'':'disabled'}>−</button><b>${q}</b><button data-act="dplus" data-id="${o.k}" aria-label="+" ${q>=9?'disabled':''}>+</button></span>`)}).join('');
+    h+=`<div class="pFoot"><span class="pTot">${t('drinksTot')}: ${money(drinksTotal())}</span><button class="btn" data-act="close">${t('done')}</button></div>`;
+  }else if(k==='help'){
+    h=`<h2>${t('pHelpH')}</h2><p class="lead">${t('pHelpL')}</p><ol class="pSteps"><li>${t('h1')}</li><li>${t('h2')}</li><li>${t('h3')}</li></ol>
+      <div class="pSec">${t('tipsH')}</div><ul class="pTips"><li>${t('tip1')}</li><li>${t('tip2')}</li><li>${t('tip3')}</li><li>${t('tip4')}</li></ul>
+      <div class="pFoot"><span></span><button class="btn" data-act="close">${t('gotIt')}</button></div>`;
+  }
+  pBody.innerHTML=h;
+}
+function openPanel(k){if(hold)cancelHold();$('#howPop').classList.remove('show');panelKind=k;renderPanel();panel.classList.add('show');$('#pCard').scrollTop=0}
+function closePanel(){panel.classList.remove('show')}
+function nav(k){
+  if(k==='build'){closePanel();checkout.classList.remove('show');if(!body.classList.contains('open'))openUp();else toast(t(state.rice?'tKeep':'tStart'));return}
+  openPanel(k);
+}
+function applyPreset(id){
+  const o=PRESET[id];openUp(true);clearTimeout(topT);pushUndo();
+  state.rice=true;state.topped=0;state.receipt=false;
+  state.piles=o.items.map((i,n)=>({uid:uidc++,id:i,nx:PRESET_POS[n][0],ny:PRESET_POS[n][1]}));
+  const pts=[];for(let i=0;i<24;i++){const f=i/23;pts.push([+(CX+(-.62+1.24*f)*RX).toFixed(4),+(CY+(-.05+.32*Math.sin(f*Math.PI*3))*RY).toFixed(4)])}
+  state.sauces=[{id:o.sauce,pts}];
+  closePanel();hideReceipt();renderRice(true);renderPiles('all');drawSauce();renderGarnish(false);updateUI();
+  toast(t('tPreset',pName(o)));
+}
+$('#pClose').addEventListener('click',closePanel);
+panel.addEventListener('click',e=>{if(e.target===panel)closePanel()});
+pBody.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id;
+  if(a==='close')closePanel();
+  else if(a==='build')nav('build');
+  else if(a==='preset')applyPreset(id);
+  else if(a==='side'){openUp(true);pushUndo();state.side=id;closePanel();renderSide(true);updateUI();toast(t('tSide',nm(SIDE[id])))}
+  else if(a==='sideOff'){pushUndo();state.side=null;renderSide(false);updateUI();renderPanel();toast(t('tSideOff'))}
+  else if(a==='dplus'||a==='dminus'){
+    pushUndo();const q=(state.drinks[id]||0)+(a==='dplus'?1:-1);
+    if(q>0)state.drinks[id]=q;else delete state.drinks[id];
+    updateUI();renderPanel();if(a==='dplus')toast(t('tDrink',nm(DRINK[id])));
+  }
+});
 
 applyLang();
 setGlove('open');
