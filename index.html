@@ -117,6 +117,20 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
 .side .tag .dot::after{content:"";width:30%;height:30%;border-radius:50%;background:var(--teal)}
 .side .tag .pr{font-weight:500;opacity:.9}
 
+/* drinks on the counter */
+.drink{width:calc(var(--u)*5.2);height:calc(var(--u)*10.4);top:calc(var(--u)*5.6);z-index:12}
+.drink:hover .lift{transform:translateY(-5px) rotate(2deg)}
+.drink .tag{top:calc(100% + var(--u)*.2);flex-direction:column;gap:0;background:var(--cream);color:var(--teal-d);padding:calc(var(--u)*.15) calc(var(--u)*.55);line-height:1.15;text-align:center;font-size:calc(var(--u)*.66)}
+.drink .tag .pr{font-weight:500;opacity:.8}
+.drink .tag.used{background:var(--coral);color:#fff}
+.dBadge{position:absolute;right:calc(var(--u)*-.5);top:calc(var(--u)*1.4);min-width:calc(var(--u)*1.6);height:calc(var(--u)*1.6);padding:0 calc(var(--u)*.3);border-radius:99px;background:var(--coral);color:#fff;font-weight:700;font-size:calc(var(--u)*.75);display:grid;place-items:center;box-shadow:0 3px 6px rgba(0,0,0,.3)}
+.dMinus{position:absolute;left:calc(var(--u)*-.5);top:calc(var(--u)*1.4);width:calc(var(--u)*1.6);height:calc(var(--u)*1.6);border-radius:50%;border:0;background:var(--teal);color:#fff;font-weight:700;font-size:calc(var(--u)*.95);line-height:1;padding:0;box-shadow:0 3px 6px rgba(0,0,0,.3)}
+.dBadge[hidden],.dMinus[hidden]{display:none}
+#dTray{left:calc(var(--u)*72.2);top:calc(var(--u)*36.5);width:calc(var(--u)*10.6);height:calc(var(--u)*13);z-index:9;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:calc(var(--u)*.3);pointer-events:none}
+#dTray .tc{position:relative;width:calc(var(--u)*3.2);height:calc(var(--u)*6.2)}
+#dTray .tc .n{position:absolute;right:calc(var(--u)*-.3);top:0;background:var(--teal);color:#fff;font-weight:700;font-size:calc(var(--u)*.65);border-radius:99px;padding:0 calc(var(--u)*.3);line-height:1.6}
+#dTray .tc .spr.in{animation:sbounce .6s var(--spring) both}
+
 /* box & bowl */
 #box{left:calc(var(--u)*29.5);top:calc(var(--u)*22.4);width:calc(var(--u)*42);height:calc(var(--u)*28);z-index:8}
 #bowl{position:absolute}
@@ -270,6 +284,8 @@ body.open .pop{opacity:1;transform:none;pointer-events:auto}
     <div id="zone"><div id="card"><b>Poke Bowl</b><span data-t="card">Fresh ingredients · Big vibes</span></div><div id="sideIn"></div></div>
   </div>
   <div id="sides"></div>
+  <div id="drinks"></div>
+  <div id="dTray" class="abs"></div>
 
   <div id="stk1" class="abs sticker pop" style="--i:15"><div class="si" data-t="s1">Better together.</div></div>
   <div id="stk2" class="abs sticker pop" style="--i:16"><div class="si" data-t="s2">Make it yours!</div></div>
@@ -359,11 +375,28 @@ const SIDE={
   prawn:{n:'Prawn crackers',p:3.5,b:[1457,304,2036,1048],y:35.4}
 };
 const DRINK={
-  tea:{n:'Green tea',p:2.5,e:'🍵'},
-  yuzu:{n:'Yuzu lemonade',p:3.5,e:'🍋'},
-  coco:{n:'Coconut water',p:3,e:'🥥'},
-  ramune:{n:'Ramune soda',p:3,e:'🫧'}
+  tea:{n:'Green tea',p:2.5,e:'🍵',c:'#9cc36b'},
+  yuzu:{n:'Yuzu lemonade',p:3.5,e:'🍋',c:'#f6d35a'},
+  coco:{n:'Coconut water',p:3,e:'🥥',c:'#efe9da'},
+  ramune:{n:'Ramune soda',p:3,e:'🫧',c:'#8fd3f0'}
 };
+/* drinks have no photo sheet: each is a small drawn cup (120×240) used like a sprite */
+const DIM={};const CUP=[0,0,120,240];
+function cupSVG(c){
+  const ice=[[34,104,-12],[58,98,8],[76,112,-5]].map(([x,y,r])=>`<rect x='${x}' y='${y}' width='18' height='16' rx='3' fill='rgba(255,255,255,.55)' transform='rotate(${r} ${x+9} ${y+8})'/>`).join('');
+  return 'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 240'>
+<rect x='63' y='2' width='9' height='74' rx='3' fill='#f2766a' transform='rotate(12 67 40)'/>
+<path d='M16 74 L104 74 L94 232 Q60 238 26 232 Z' fill='rgba(255,255,255,.4)' stroke='#c9d3d6' stroke-width='2'/>
+<path d='M19 96 L101 96 L94.5 229 Q60 235 25.5 229 Z' fill='${c}'/>${ice}
+<path d='M20.2 140 L99.8 140 L96.9 186 L23.1 186 Z' fill='#0d6a6e'/>
+<text x='60' y='160' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='15' fill='#fff'>POKE</text>
+<text x='60' y='178' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-weight='900' font-size='15' fill='#f2766a'>PAL</text>
+<path d='M26 80 L33 226' stroke='rgba(255,255,255,.6)' stroke-width='5' stroke-linecap='round'/>
+<path d='M14 70 Q60 34 106 70 Z' fill='rgba(255,255,255,.75)' stroke='#c9d3d6' stroke-width='2'/>
+<rect x='10' y='66' width='100' height='12' rx='6' fill='#eef2f3' stroke='#c9d3d6' stroke-width='2'/>
+</svg>`);
+}
+Object.entries(DRINK).forEach(([k,o])=>{SH['d_'+k]=cupSVG(o.c);DIM['d_'+k]=[120,240]});
 const PRESET={
   classic:{n:'Classic Salmon',es:'Salmón clásico',e:'🍣',items:['salmon','avocado','cucumber'],sauce:'shoyu'},
   spicy:{n:'Spicy Tuna',es:'Atún picante',e:'🌶️',items:['tuna','mango','edamame'],sauce:'mayo'},
@@ -403,13 +436,22 @@ Object.entries(SIDE).forEach(([id,d])=>{
   $('#sides').appendChild(el);
 });
 
+idx=19;
+Object.entries(DRINK).forEach(([id,d],i)=>{
+  const el=document.createElement('div');
+  el.className='drink abs pop';el.dataset.id=id;
+  el.style.cssText=`left:calc(var(--u)*${52.6+i*7});--i:${idx++}`;
+  el.innerHTML=`<div class="lift"><div class="spr"></div><div class="tag"><b class="nm"></b><span class="pr">${money(d.p)}</span></div><span class="dBadge" hidden></span><button class="dMinus" hidden aria-label="−">−</button></div>`;
+  $('#drinks').appendChild(el);
+});
+
 /* ---------- sprite fit ---------- */
 function fit(el,sheet,box,aw,ah){
   const bw=box[2]-box[0],bh=box[3]-box[1],k=Math.min(aw/bw,ah/bh),w=bw*k,h=bh*k,ml=(aw-w)/2,mt=(ah-h)/2;
   const s=el.style;
   s.width=w+'px';s.height=h+'px';s.marginLeft=ml+'px';s.marginTop=mt+'px';
   s.backgroundImage=`url("${SH[sheet]}")`;
-  s.backgroundSize=`${2048*k}px ${1360*k}px`;
+  const dm=DIM[sheet]||[2048,1360];s.backgroundSize=`${dm[0]*k}px ${dm[1]*k}px`;
   s.backgroundPosition=`${-box[0]*k}px ${-box[1]*k}px`;
   return {w,h,k,ml,mt};
 }
@@ -423,6 +465,8 @@ function layout(){
   document.querySelectorAll('.pan').forEach(p=>fit(p.querySelector('.spr'),'tr',ING[p.dataset.id].tr,9.2*U,9.4*U));
   document.querySelectorAll('.bottle').forEach(b=>fit(b.querySelector('.spr'),'bt',SAUCE[b.dataset.id].b,5.6*U,16*U));
   document.querySelectorAll('.side').forEach(b=>fit(b.querySelector('.spr'),'sd',SIDE[b.dataset.id].b,11*U,12.4*U));
+  document.querySelectorAll('.drink').forEach(b=>fit(b.querySelector('.spr'),'d_'+b.dataset.id,CUP,5.2*U,10.4*U));
+  renderDrinks();
   fit($('#closedSpr'),'bxc',BOX_C,38*U,30*U);
   const f=fit($('#boxSpr'),'bxo',BOX_O,42*U,28*U),k=f.k;
   const bx=x=>f.ml+(x-BOX_O[0])*k,by=y=>f.mt+(y-BOX_O[1])*k;
@@ -515,6 +559,19 @@ function renderGarnish(anim){
 }
 
 /* ---------- UI ---------- */
+let trayPrev={};
+function renderDrinks(newId){
+  const U=L.U,dr=state.drinks||{};
+  document.querySelectorAll('.drink').forEach(el=>{const q=dr[el.dataset.id]||0,b=el.querySelector('.dBadge');
+    b.hidden=!q;b.textContent='×'+q;el.querySelector('.dMinus').hidden=!q;el.querySelector('.tag').classList.toggle('used',!!q)});
+  const tray=$('#dTray');tray.innerHTML='';
+  Object.keys(DRINK).forEach(k=>{const q=dr[k]||0;if(!q)return;
+    const c=document.createElement('div');c.className='tc';const s=document.createElement('div');s.className='spr';
+    fit(s,'d_'+k,CUP,3.2*U,6.2*U);if(q>(trayPrev[k]||0))s.classList.add('in');c.appendChild(s);
+    if(q>1){const n=document.createElement('span');n.className='n';n.textContent='×'+q;c.appendChild(n)}
+    tray.appendChild(c)});
+  trayPrev={...dr};
+}
 function drinksTotal(){return Object.entries(state.drinks||{}).reduce((s,[k,q])=>s+DRINK[k].p*q,0)}
 function bowlTotal(){return(state.rice?8:0)+state.piles.reduce((s,p)=>s+ING[p.id].p,0)+(state.side?SIDE[state.side].p:0)+drinksTotal()}
 function receiptTotal(){return bowlTotal()+(state.mode==='delivery'?4:0)}
@@ -528,6 +585,7 @@ function updateUI(){
   document.querySelectorAll('.pan').forEach(p=>{const id=p.dataset.id;p.querySelector('.tag').classList.toggle('used',id==='rice'?state.rice:state.piles.some(x=>x.id===id))});
   document.querySelectorAll('.bottle').forEach(b=>b.querySelector('.tag').classList.toggle('used',state.sauces.some(s=>s.id===b.dataset.id)));
   document.querySelectorAll('.side').forEach(s=>s.classList.toggle('placed',state.side===s.dataset.id));
+  renderDrinks();
   const done=[state.rice,state.piles.some(p=>PROTEIN.includes(p.id)),state.piles.some(p=>!PROTEIN.includes(p.id)),state.sauces.length>0];
   const cur=done.indexOf(false);
   document.querySelectorAll('.step').forEach((s,i)=>{s.classList.toggle('done',done[i]);s.classList.toggle('cur',i===cur);s.querySelector('.n').textContent=done[i]?'✓':i+1});
@@ -590,7 +648,7 @@ function setGlove(st){
   if(st===gState)return;gState=st;const g=G[st];
   glove.innerHTML=`<g fill="#a8392f" stroke="#a8392f" stroke-width="4.4" stroke-linejoin="round">${g.sh}${cuff}</g><g fill="#e05d50">${cuff}</g><path d="M17 51.5h28" stroke="#a8392f" stroke-width="1.2" opacity=".7"/><g fill="#f2766a">${g.sh}</g><g fill="#fff" opacity=".28"><ellipse cx="24" cy="30" rx="4" ry="2.2" transform="rotate(-30 24 30)"/></g>${g.ln}`;
 }
-const POINT_SEL='button,.pan,.bottle,.side,.pile,#closed,input,select,a,label,textarea';
+const POINT_SEL='button,.pan,.bottle,.side,.drink,.pile,#closed,input,select,a,label,textarea';
 let P={x:-200,y:-200},lastTarget=null;
 function placeGlove(){
   const st=hold?(hold.kind==='bottle'?'open':'grab'):(lastTarget&&lastTarget.closest&&lastTarget.closest(POINT_SEL)?'point':'open');
@@ -606,6 +664,7 @@ function pickUp(kind,id){
   let f;
   if(kind==='ing'){f=fit(hin,'pl',ING[id].pl,.38*L.W,.38*L.W);hin.style.margin='0';hin.style.left=-f.w/2+'px';hin.style.top=-f.h/2+8+'px';hin.style.transform='rotate(-8deg)'}
   else if(kind==='side'){f=fit(hin,'sd',SIDE[id].b,11*U*.8,12.4*U*.8);hin.style.margin='0';hin.style.left=-f.w/2+'px';hin.style.top=-f.h/2+'px'}
+  else if(kind==='drink'){f=fit(hin,'d_'+id,CUP,5.2*U,10.4*U);hin.style.margin='0';hin.style.left=-f.w/2+'px';hin.style.top=-f.h/2+'px';hin.style.transform='rotate(-6deg)'}
   else{f=fit(hin,'bt',SAUCE[id].b,5.6*U,16*U);hin.classList.add('bt');hin.style.margin='0';hin.style.left=-f.w/2+'px';hin.style.top='0';hin.style.transformOrigin='50% 0';hold.h=f.h;
     const o=document.querySelector(`.bottle[data-id=${id}]`),r=o.querySelector('.spr').getBoundingClientRect();
     hold.bx=r.left+r.width/2;hold.by=r.top;hold.ang=0;hold.tilt=-140;hin.style.transform='rotate(0deg)';
@@ -639,6 +698,7 @@ function fly(src,a,b,dur,ease,origin,cb){
 }
 function flyHome(src,kind,id,from,rot){
   if(kind==='ing'){const t=center(document.querySelector(`.pan[data-id=${id}] .spr`));fly(src,{x:from.x,y:from.y,r:rot},{x:t.x,y:t.y,r:0,s:.45,o:.2},460,'cubic-bezier(.45,-0.25,.4,1)')}
+  else if(kind==='drink'){const t=center(document.querySelector(`.drink[data-id=${id}] .spr`));fly(src,{x:from.x,y:from.y,r:rot},{x:t.x,y:t.y,r:0},460,'cubic-bezier(.45,-0.25,.4,1)')}
   else{const el=document.querySelector(`.side[data-id=${id}] .spr`),t=center(el);fly(src,{x:from.x,y:from.y,r:rot,s:1},{x:t.x,y:t.y,r:0,s:1.25,o:.6},480,'cubic-bezier(.45,-0.25,.4,1)')}
 }
 function place(nx,ny){
@@ -669,6 +729,9 @@ function dropHeld(){
       const q=place((lx-CX)/RX,(ly-CY)/RY);
       pushUndo();const uid=uidc++;state.piles.push({uid,id:h.id,nx:q.nx,ny:q.ny});renderPiles(uid);toast(t('tAdd',nm(ING[h.id])));
     }
+  }else if(h.kind==='drink'){
+    if(inRect($('#box'),P.x,P.y)||inRect($('#dTray'),P.x,P.y,L.U))addDrink(h.id,1);
+    else{flyHome(hin,'drink',h.id,from,-6);toast(t('tDrinkSpot'))}
   }else{
     if(inRect(zone,P.x,P.y,L.U)){pushUndo();state.side=h.id;renderSide(true);toast(t('tSide',nm(SIDE[h.id])))}
     else{flyHome(hin,'side',h.id,from,0);toast(t('tSpot'))}
@@ -695,7 +758,7 @@ function cancelHold(){
   if(!hold)return;
   if(hold.kind==='bottle'){returnBottle();return}
   const h=hold;hold=null;const hin=held.firstChild;
-  flyHome(hin,h.kind,h.id,center(hin),h.kind==='ing'?-8:0);clearHeld();placeGlove();
+  flyHome(hin,h.kind,h.id,center(hin),h.kind==='ing'?-8:h.kind==='drink'?-6:0);clearHeld();placeGlove();
 }
 function removePile(uid){
   const p=state.piles.find(x=>x.uid===uid);if(!p)return;
@@ -737,10 +800,11 @@ window.addEventListener('pointerdown',e=>{
     return;
   }
   if(t.closest('button,input,select,a,label,#receipt,#barWrap,#band'))return;
-  const pan=t.closest('.pan'),bot=t.closest('.bottle'),sd=t.closest('.side'),pile=t.closest('.pile');
+  const pan=t.closest('.pan'),bot=t.closest('.bottle'),sd=t.closest('.side'),pile=t.closest('.pile'),dk=t.closest('.drink');
   if(pan){e.preventDefault();pickUp('ing',pan.dataset.id)}
   else if(bot){e.preventDefault();if(!state.rice){toast(t('tFirst'));return}pickUp('bottle',bot.dataset.id)}
   else if(sd){e.preventDefault();pickUp('side',sd.dataset.id)}
+  else if(dk){e.preventDefault();pickUp('drink',dk.dataset.id)}
   else if(pile){e.preventDefault();removePile(+pile.dataset.uid)}
 });
 function onUp(){
@@ -813,10 +877,10 @@ const I18N={
   pMenuH:'Our menu',pMenuL:'Everything you can put in your Poke Pal box. Sauces are always free.',secBase:'Base',secProt:'Proteins',secTop:'Toppings',secSauce:'Sauces',secSide:'Sides',secDrink:'Drinks',
   buildGo:'Build your bowl ↗',pBowlsH:'Signature bowls',pBowlsL:'Short on ideas? Pick one and we put it in your box. You can still change anything after.',use:'Use this bowl',
   pSidesH:'Sides',pSidesL:'One side fits in the box. Picking another one swaps it.',addBox:'Add to box',remove:'Remove',inBox:'In your box',
-  pDrinksH:'Drinks',pDrinksL:'Cold drinks to go with your bowl. They are added to your total.',drinksTot:'Drinks',done:'Done',
+  pDrinksH:'Drinks',pDrinksL:'Cold drinks to go with your bowl. You can also grab them on the counter and drop them in your box.',drinksTot:'Drinks',done:'Done',
   pHelpH:'Help',pHelpL:'How to build your bowl:',tipsH:'Good to know',
   tip1:'Click a topping in the bowl to send it back to its pan.',tip2:'Press Esc to put down whatever you are holding.',tip3:'↺ Undo or Ctrl/Cmd + Z reverses the last step.',tip4:'Sauces are free. Delivery adds $4.',
-  gotIt:'Got it',tPreset:'{n} is in your box.',tKeep:'Keep building your bowl.',tDrink:'{n} added.',tSideOff:'Side removed.',free2:'free'},
+  gotIt:'Got it',tPreset:'{n} is in your box.',tKeep:'Keep building your bowl.',tDrink:'{n} added.',tDrinkOff:'{n} removed.',tDrinkSpot:'Drop the drink in your box!',tSideOff:'Side removed.',free2:'free'},
  es:{nav1:'Menú',nav2:'Arma tu Poke Bowl',nav3:'Bowls',nav4:'Acompañamientos',nav5:'Bebidas',nav6:'Ayuda',how:'Cómo funciona',
   h1:'Toma el arroz y luego tus toppings.',h2:'Toma una botella y echa la salsa.',h3:'Agrega un acompañamiento, decóralo y paga.',
   tag:'Bowls frescos.<br>Días mejores.',ih:'Lo bueno viene en bowls.',ip:'Un poco de arroz y mucho frescor. Arma tu bowl, ponle salsa y elige un acompañamiento.',open:'Abre algo fresco ↗',
@@ -829,17 +893,17 @@ const I18N={
   pMenuH:'Nuestra carta',pMenuL:'Todo lo que puedes poner en tu caja Poke Pal. Las salsas siempre son gratis.',secBase:'Base',secProt:'Proteínas',secTop:'Toppings',secSauce:'Salsas',secSide:'Acompañamientos',secDrink:'Bebidas',
   buildGo:'Arma tu bowl ↗',pBowlsH:'Bowls de la casa',pBowlsL:'¿Sin ideas? Elige uno y lo ponemos en tu caja. Después puedes cambiar lo que quieras.',use:'Usar este bowl',
   pSidesH:'Acompañamientos',pSidesL:'En la caja cabe un acompañamiento. Si eliges otro, se cambia.',addBox:'Añadir a la caja',remove:'Quitar',inBox:'En tu caja',
-  pDrinksH:'Bebidas',pDrinksL:'Bebidas frías para acompañar tu bowl. Se suman a tu total.',drinksTot:'Bebidas',done:'Listo',
+  pDrinksH:'Bebidas',pDrinksL:'Bebidas frías para acompañar tu bowl. También puedes tomarlas del mostrador y soltarlas en tu caja.',drinksTot:'Bebidas',done:'Listo',
   pHelpH:'Ayuda',pHelpL:'Cómo armar tu bowl:',tipsH:'Para tener en cuenta',
   tip1:'Haz clic en un topping del bowl para devolverlo a su bandeja.',tip2:'Pulsa Esc para soltar lo que tienes en la mano.',tip3:'↺ Deshacer o Ctrl/Cmd + Z revierte el último paso.',tip4:'Las salsas son gratis. El delivery suma $4.',
-  gotIt:'Entendido',tPreset:'{n} ya está en tu caja.',tKeep:'Sigue armando tu bowl.',tDrink:'Agregaste {n}.',tSideOff:'Quitaste el acompañamiento.',free2:'gratis'}
+  gotIt:'Entendido',tPreset:'{n} ya está en tu caja.',tKeep:'Sigue armando tu bowl.',tDrink:'Agregaste {n}.',tDrinkOff:'Quitaste {n}.',tDrinkSpot:'¡Suelta la bebida en tu caja!',tSideOff:'Quitaste el acompañamiento.',free2:'gratis'}
 };
 const ES_N={rice:'Arroz de sushi',salmon:'Salmón',tuna:'Atún',avocado:'Palta',edamame:'Edamame',cucumber:'Pepino',mango:'Mango',seaweed:'Ensalada de algas',
   shoyu:'Shoyu',mayo:'Mayo picante',ponzu:'Ponzu',miso:'Sopa miso',gyoza:'Gyoza',prawn:'Galletas de camarón',
   tea:'Té verde',yuzu:'Limonada de yuzu',coco:'Agua de coco',ramune:'Soda Ramune'};
 Object.entries(ING).forEach(([k,v])=>v.k=k);Object.entries(SAUCE).forEach(([k,v])=>v.k=k);Object.entries(SIDE).forEach(([k,v])=>v.k=k);Object.entries(DRINK).forEach(([k,v])=>v.k=k);
 let lang='en';try{const l=localStorage.getItem('pp-lang');if(l==='es'||l==='en')lang=l}catch(e){}
-function t(k,n){const s=I18N[lang][k]??I18N.en[k];return n!=null?s.replace('{n}',lang==='es'&&(k==='tAdd'||k==='tRem'||k==='tDrink')?n.toLowerCase():n):s}
+function t(k,n){const s=I18N[lang][k]??I18N.en[k];return n!=null?s.replace('{n}',lang==='es'&&(k==='tAdd'||k==='tRem'||k==='tDrink'||k==='tDrinkOff')?n.toLowerCase():n):s}
 function nm(o){return lang==='es'?ES_N[o.k]:o.n}
 function applyLang(){
   document.documentElement.lang=lang;
@@ -848,6 +912,7 @@ function applyLang(){
   document.querySelectorAll('.pan').forEach(p=>p.querySelector('.nm').textContent=nm(ING[p.dataset.id]));
   document.querySelectorAll('.bottle').forEach(p=>p.querySelector('.nm').textContent=nm(SAUCE[p.dataset.id]));
   document.querySelectorAll('.side').forEach(p=>p.querySelector('.nm').textContent=nm(SIDE[p.dataset.id]));
+  document.querySelectorAll('.drink').forEach(p=>p.querySelector('.nm').textContent=nm(DRINK[p.dataset.id]));
   if(checkout.classList.contains('show'))$('#locLabel').textContent=t(state.mode==='delivery'?'locD':'locP');
   if(state.receipt&&receipt.classList.contains('show')&&!printing)showReceipt(true,true);
   $('#pClose').setAttribute('aria-label',t('close'));
@@ -910,6 +975,12 @@ function applyPreset(id){
   closePanel();hideReceipt();renderRice(true);renderPiles('all');drawSauce();renderGarnish(false);updateUI();
   toast(t('tPreset',pName(o)));
 }
+function addDrink(id,d){
+  const q=(state.drinks[id]||0)+d;if(q<0||q>9)return;
+  pushUndo();if(q>0)state.drinks[id]=q;else delete state.drinks[id];
+  updateUI();toast(t(d>0?'tDrink':'tDrinkOff',nm(DRINK[id])));
+}
+document.querySelectorAll('.dMinus').forEach(b=>b.addEventListener('click',()=>addDrink(b.closest('.drink').dataset.id,-1)));
 $('#pClose').addEventListener('click',closePanel);
 panel.addEventListener('click',e=>{if(e.target===panel)closePanel()});
 pBody.addEventListener('click',e=>{
@@ -919,11 +990,7 @@ pBody.addEventListener('click',e=>{
   else if(a==='preset')applyPreset(id);
   else if(a==='side'){openUp(true);pushUndo();state.side=id;closePanel();renderSide(true);updateUI();toast(t('tSide',nm(SIDE[id])))}
   else if(a==='sideOff'){pushUndo();state.side=null;renderSide(false);updateUI();renderPanel();toast(t('tSideOff'))}
-  else if(a==='dplus'||a==='dminus'){
-    pushUndo();const q=(state.drinks[id]||0)+(a==='dplus'?1:-1);
-    if(q>0)state.drinks[id]=q;else delete state.drinks[id];
-    updateUI();renderPanel();if(a==='dplus')toast(t('tDrink',nm(DRINK[id])));
-  }
+  else if(a==='dplus'||a==='dminus'){addDrink(id,a==='dplus'?1:-1);renderPanel()}
 });
 
 applyLang();
